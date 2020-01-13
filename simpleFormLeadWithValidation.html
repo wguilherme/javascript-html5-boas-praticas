@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8" />
@@ -45,13 +45,11 @@
     </script>
 
 
-<!-- oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'please enter 1234');" -->
+    <!-- oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'please enter 1234');" -->
 
     <form>
-        <input required pattern="(\w+\W+){1,10}\w+\W*" oninput="setCustomValidity(''); setCustomValidity('Por favor, informe seu Nome e Sobrenome')" type="text"
-            id="firstname" name="firstname" placeholder="Nome e Sobrenome" onfocusout="validaNome()"
-             />
-            
+        <input required pattern="(\w+\W+){1,10}\w+\W*" oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'Por favor, informe seu Nome e Sobrenome');"type="text" id="firstname" name="firstname" placeholder="Nome e Sobrenome" />
+
         <input required type="email" id="email" name="email" placeholder="Email" />
         <input required type="text" id="mobilephone" name="mobilephone" placeholder="WhatsApp" />
         <input required id="submit" type="submit" value="Enviar" onsubmit="clickSubmit();" />
@@ -68,18 +66,6 @@
         //get nome e sobrenome field form
         //envio do form
 
-        function validaNome() {
-            //validacoes
-            var nameLen = document.querySelector('#firstname').value.split(' ').length;
-            console.log(nameLen);
-
-            if (nameLen < 2) {
-                document.querySelector('#errosDiv').innerHTML = "Por favor, insira o nome e sobrenome";
-                event.preventDefault();
-                return;
-            }
-
-        }
 
         function clickSubmit() {
 

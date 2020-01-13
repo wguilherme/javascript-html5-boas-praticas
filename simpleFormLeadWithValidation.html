@@ -74,7 +74,7 @@
         name="mobilephone"
         placeholder="WhatsApp"
       />
-
+      <p id="processandoEnvio" style="text-align: center;"></p>
       <button
         id="submit"
         class="botao"
@@ -85,7 +85,7 @@
       >
         <span id="btnTxtSubmit">Enviar</span>
       </button>
-      <p id="processandoEnvio"></p>
+
       <p id="errosDiv"></p>
     </form>
 
@@ -107,14 +107,14 @@
 
       //envio do form
       function clickSubmit() {
-        alert("clicou");
+        console.log('clicou');
+
         document.querySelector("#processandoEnvio").innerHTML =
           "Processando envio, por favor, aguarde...";
         event.preventDefault();
 
         //redirect
         setTimeout(function() {
-          alert("5 segundos dps");
           window.location.href = redirectURL;
         }, 3000);
       }

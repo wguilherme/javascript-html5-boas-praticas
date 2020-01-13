@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+
+    <title>HTML5 Form Validation</title>
   </head>
 
   <body>
@@ -43,6 +44,8 @@
 
     <!-- oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'please enter 1234');" -->
 
+    <h1 style="text-align: center; margin-bottom: 20px;">Garanta sua vaga:</h1>
+
     <form>
       <input
         required
@@ -70,13 +73,19 @@
         name="mobilephone"
         placeholder="WhatsApp"
       />
-      <input
-        required
+
+      <button
         id="submit"
+        class="botao"
         type="submit"
         value="Enviar"
+        id="botao"
+        class="botao"
+        style="display: block;"
         onsubmit="clickSubmit();"
-      />
+      >
+        Quero ser aluno
+      </button>
     </form>
     <p id="processandoEnvio"></p>
     <p id="errosDiv"></p>
@@ -89,33 +98,45 @@
       //aplica texto botão
       document.querySelector("#submit").value = btnTxtSubmit;
 
+      //validacao estilo
+      //add classe após envio
+      document
+        .querySelector('[type="submit"]')
+        .addEventListener("click", function() {
+          this.form.classList.add("submitted");
+        });
+
       //envio do form
       function clickSubmit() {
-        validaNome();
-        //aviso processando envio
         document.querySelector("#processandoEnvio").innerHTML =
           "Processando envio, por favor, aguarde...";
         event.preventDefault();
 
         //redirect
-        // setTimeout(function () {
-        //     alert("5 segundos dps");
-        //     window.location.href = redirectURL;
-        // }, 3000);
+        setTimeout(function() {
+          alert("5 segundos dps");
+          window.location.href = redirectURL;
+        }, 3000);
       }
     </script>
 
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      @media screen and (min-width: 800px) {
+        body {
+          background-color: #fff9f1;
+          font-family: "helvetica neue", helvetica, arial, sans-serif;
+          color: #222;
+          width: 700px;
+          margin: 0 auto;
+          margin-top: 50px;
+        }
       }
-
-      body {
-        background-color: #eee;
-        font-family: "helvetica neue", helvetica, arial, sans-serif;
-        color: #222;
+      @media screen and (max-width: 800px) {
+        body {
+          background-color: #fff9f1;
+          font-family: "helvetica neue", helvetica, arial, sans-serif;
+          color: #222;
+        }
       }
 
       #form {
@@ -131,11 +152,15 @@
 
       label,
       input {
-        width: 70%;
-        padding: 0.5rem;
-        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        background-color: #ededed;
+        border: none;
+        padding: 1.1rem;
+        font-weight: 300;
         justify-content: space-between;
-        font-size: 1.1rem;
+        font-size: 1rem;
+        text-transform: uppercase;
       }
 
       label {
@@ -144,19 +169,120 @@
       }
 
       input {
-        border: 2px solid #aaa;
-        border-radius: 0px;
-        margin: 0.1em 0;
+        border-radius: 3px;
+        margin: 0.5em 0;
       }
 
-      /* input,
-        input:valid {
-            border-color: #ccc;
-        }
+      /* ::placeholder {
+      } */
 
-        input:invalid {
-            border-color: #DD2C00;
-        } */
+      /* Classe para inputs inválidos após o submit */
+      form.submitted input:invalid {
+        border: 1px solid red;
+        outline: 0;
+      }
+
+      #notify {
+        margin-top: 5px;
+        padding: 10px;
+        font-size: 12px;
+        width: 100%;
+        color: #fff;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      #notify.error {
+        background-color: #dd2c00;
+      }
+
+      .btn-yellow,
+      .btn-yellow-small,
+      .btn-yellow-x-small {
+        position: relative;
+        color: #fff;
+        background-color: #ff4400;
+        border-color: #e67e22;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        padding: 18px 32px;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .btn-yellow:before,
+      .btn-yellow-small:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        bottom: 4px;
+        left: 4px;
+        border: 1px solid #fff;
+      }
+
+      /* BTN GREEN STYLE*/
+
+      .btn-green,
+      .btn-green-small,
+      .btn-green-x-small {
+        position: relative;
+        color: #fff;
+        background-color: #23a455;
+        border-color: #e67e22;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        padding: 18px 32px;
+        font-size: 14px;
+        line-height: 20px;
+        text-transform: uppercase;
+      }
+      .btn-green:before,
+      .btn-green-small:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        bottom: 4px;
+        left: 4px;
+        border: 1px solid #fff;
+      }
+
+      .botao {
+        display: block;
+        position: relative;
+        color: #fff;
+        text-transform: uppercase;
+        background-color: #ff4400;
+        border-color: #e67e22;
+        padding: 18px 32px;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 2px;
+        font-weight: bold !important;
+        margin: 0 auto;
+      }
+
+      .botao:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        bottom: 4px;
+        left: 4px;
+        border: 1px solid #fff !important;
+      }
+
+      .botao:hover {
+        color: #3a3a3a;
+      }
     </style>
   </body>
 </html>

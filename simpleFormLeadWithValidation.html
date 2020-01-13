@@ -47,7 +47,7 @@
 
     <h1 style="text-align: center; margin-bottom: 20px;">Garanta sua vaga:</h1>
 
-    <form>
+    <form onsubmit="clickSubmit()">
       <input
         required
         pattern="(\w+\W+){1,10}\w+\W*"
@@ -81,7 +81,7 @@
         type="submit"
         value="Enviar"
         style="display: block;"
-        onsubmit="clickSubmit();"
+        "
       >
         <span id="btnTxtSubmit">Enviar</span>
       </button>
@@ -107,6 +107,7 @@
 
       //envio do form
       function clickSubmit() {
+        alert("clicou");
         document.querySelector("#processandoEnvio").innerHTML =
           "Processando envio, por favor, aguarde...";
         event.preventDefault();

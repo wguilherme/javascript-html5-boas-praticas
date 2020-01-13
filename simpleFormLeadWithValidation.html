@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //validacoes
+        var campoId = 'mobilephone';
+
+        function mascara(o, f) {
+            v_obj = o
+            v_fun = f
+            setTimeout("execmascara()", 1)
+        }
+
+        function execmascara() {
+            v_obj.value = v_fun(v_obj.value)
+        }
+
+        function mtel(v) {
+            v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
+            v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+            v = v.replace(/(\d)(\d{4})$/, "$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+            return v;
+        }
+
+        function id(el) {
+            return document.getElementById(el);
+        }
+
+        window.onload = function () {
+
+            document.getElementById(campoId).maxLength = "15";
+            id(campoId).onkeypress = function () {
+                mascara(this, mtel);
+            }
+        }
+    </script>
+
+
+<!-- oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'please enter 1234');" -->
+
+    <form>
+        <input required pattern="(\w+\W+){1,10}\w+\W*" oninput="setCustomValidity(''); setCustomValidity('Por favor, informe seu Nome e Sobrenome')" type="text"
+            id="firstname" name="firstname" placeholder="Nome e Sobrenome" onfocusout="validaNome()"
+             />
+            
+        <input required type="email" id="email" name="email" placeholder="Email" />
+        <input required type="text" id="mobilephone" name="mobilephone" placeholder="WhatsApp" />
+        <input required id="submit" type="submit" value="Enviar" onsubmit="clickSubmit();" />
+    </form>
+    <p id="processandoEnvio"></p>
+    <p id="errosDiv"></p>
+
+    <script>
+        //texto do botão
+        var btnTxtSubmit = 'Quero ser aluno';
+        var redirectURL = 'http://www.google.com';
+        //aplica texto botão
+        document.querySelector('#submit').value = btnTxtSubmit;
+        //get nome e sobrenome field form
+        //envio do form
+
+        function validaNome() {
+            //validacoes
+            var nameLen = document.querySelector('#firstname').value.split(' ').length;
+            console.log(nameLen);
+
+            if (nameLen < 2) {
+                document.querySelector('#errosDiv').innerHTML = "Por favor, insira o nome e sobrenome";
+                event.preventDefault();
+                return;
+            }
+
+        }
+
+        function clickSubmit() {
+
+            validaNome();
+            //aviso processando envio
+            document.querySelector('#processandoEnvio').innerHTML =
+                "Processando envio, por favor, aguarde...";
+            event.preventDefault()
+
+
+
+            //redirect
+            // setTimeout(function () {
+            //     alert("5 segundos dps");
+            //     window.location.href = redirectURL;
+            // }, 3000);
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #eee;
+            font-family: "helvetica neue", helvetica, arial, sans-serif;
+            color: #222;
+        }
+
+        #form {
+            max-width: 700px;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .form-field {
+            display: flex;
+            margin: 0 0 1rem 0;
+        }
+
+        label,
+        input {
+            width: 70%;
+            padding: 0.5rem;
+            box-sizing: border-box;
+            justify-content: space-between;
+            font-size: 1.1rem;
+        }
+
+        label {
+            text-align: right;
+            width: 30%;
+        }
+
+        input {
+            border: 2px solid #aaa;
+            border-radius: 2px;
+        }
+
+        /* input,
+        input:valid {
+            border-color: #ccc;
+        }
+
+        input:invalid {
+            border-color: #DD2C00;
+        } */
+    </style>
+</body>
+
+</html>

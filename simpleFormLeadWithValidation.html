@@ -11,6 +11,7 @@
   <body>
     <script>
       //validacoes
+      //
       var campoId = "mobilephone";
 
       function mascara(o, f) {
@@ -79,16 +80,14 @@
         class="botao"
         type="submit"
         value="Enviar"
-        id="botao"
-        class="botao"
         style="display: block;"
         onsubmit="clickSubmit();"
       >
-        Quero ser aluno
+        <span id="btnTxtSubmit">Enviar</span>
       </button>
+      <p id="processandoEnvio"></p>
+      <p id="errosDiv"></p>
     </form>
-    <p id="processandoEnvio"></p>
-    <p id="errosDiv"></p>
 
     <script>
       //texto do botão
@@ -96,7 +95,7 @@
       var redirectURL = "http://www.google.com";
 
       //aplica texto botão
-      document.querySelector("#submit").value = btnTxtSubmit;
+      document.querySelector("#submit").innerHTML = btnTxtSubmit;
 
       //validacao estilo
       //add classe após envio

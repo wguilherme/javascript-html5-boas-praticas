@@ -35,62 +35,75 @@
     }
    }
   }
-  
   </script>
  
-
-    <!-- oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'please enter 1234');" -->
-
     <h1 style="text-align: center; margin-bottom: 20px;">Garanta sua vaga:</h1>
 
     <form onsubmit="clickSubmit()" id="form-lead">
-      <input
-        required
-        pattern="(\w+\W+){1,10}\w+\W*"
-        oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'Por favor, informe seu Nome e Sobrenome');"
-        type="text"
-        id="firstname"
-        name="firstname"
-        placeholder="Nome e Sobrenome"
-      />
+        <!-- Nome e sobrenome, com pattern do HTML, Validação Customizada e Personalização da Mensagem de ERRO-->
+        <!-- Tratamento para não considerar inválido quando o form está vazio -->
+    <input
+    required
+    pattern="(\w+\W+){1,10}\w+\W*"
+    oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'Por favor, informe seu Nome e Sobrenome');"
+    type="text"
+    id="firstname"
+    name="firstname"
+    placeholder="Nome e Sobrenome"
+    />
 
-      <input
-        required
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Email"
-      />
-      <input
-        required
-        pattern="(.){15,15}"
-        oninput="setCustomValidity(''); checkValidity(); mascara(this, 'tel'); setCustomValidity(validity.valid ? '' :'Por favor, inclua um número de telefone válido');"
-        type="tel"
-        id="mobilephone"
-        name="mobilephone"
-        placeholder="WhatsApp"
-      />
-      <p id="processandoEnvio" style="text-align: center;"></p>
-      <button
-        id="submit"
-        class="botao"
-        type="submit"
-        value="Enviar"
-        style="display: block;"
-        "
-      >
-        <span id="btnTxtSubmit">Enviar</span>
-      </button>
+    <!-- Validação Padrão do HTML5 para Email-->
+    <input
+    required
+    type="email"
+    id="email"
+    name="email"
+    placeholder="Email"
+    />
 
-      <p id="errosDiv"></p>
+    <!-- Validação de Telefone com Máscara, utilizando gatilho do HTML (oninput) para chamar a função mascara, que passa o tipo -->
+    <!-- Customização do erro, e tpara não considerar inválido quando o form está vazio -->
+    <!-- Máscara aplicada com JS Vanilla, customizável para outros casos de uso-->
+    <input
+    required
+    pattern="(.){15,15}"
+    oninput="setCustomValidity(''); checkValidity(); mascara(this, 'tel'); setCustomValidity(validity.valid ? '' :'Por favor, inclua um número de telefone válido');"
+    type="tel"
+    id="mobilephone"
+    name="mobilephone"
+    placeholder="WhatsApp"
+    />
+
+    <!-- Tag mostrada após clique do botão "Processando", texto customizável na variável aguardeTexto btnTxtSubmit-->
+    <p id="processandoEnvio" style="text-align: center;"></p>
+    
+    
+    <!-- Submit button - função do submit chamada na tag do form -->
+    <button
+    id="submit"
+    class="botao"
+    type="submit"
+    value="Enviar"
+    style="display: block;"
+    "
+    >
+    <!-- Texto do botão customizável na variável  btnTxtSubmit -->
+    <span id="btnTxtSubmit">Enviar</span>
+</button>
+
+<!-- Div para display de erros customizados - não utilizado neste exemplo -->
+<!-- <p id="errosDiv"></p> -->
     </form>
 
     <script>
       //texto do botão
       var btnTxtSubmit = "Quero ser aluno";
+      //url a ser direcionado após x segundos
       var redirectURL = "http://www.google.com";
+      //texto que aparece após clicar no botão
+      var aguardeTexto = "Processando envio, por favor, aguarde..."
 
-      //aplica texto botão
+      //aplica texto do btnTextSubmit no botão
       document.querySelector("#submit").innerHTML = btnTxtSubmit;
 
       //validacao estilo
@@ -103,13 +116,12 @@
 
       //envio do form
       function clickSubmit() {
-        console.log('clicou');
 
-        document.querySelector("#processandoEnvio").innerHTML =
-          "Processando envio, por favor, aguarde...";
+        //mostra texto "Processando envio"
+        document.querySelector("#processandoEnvio").innerHTML = aguardeTexto;
         event.preventDefault();
 
-        //redirect
+        //redirect após 3 segundos
         setTimeout(function() {
           window.location.href = redirectURL;
         }, 3000);
@@ -117,24 +129,29 @@
     </script>
 
     <style>
-      @media screen and (min-width: 800px) {
-          
-          body {
-          background-color: #fff9f1;
-          font-family: "helvetica neue", helvetica, arial, sans-serif;
-          color: #222;
-          width: 700px;
-          margin: 0 auto;
-          margin-top: 50px;
-        }
-      }
-      @media screen and (max-width: 800px) {
-        body {
-          background-color: #fff9f1;
-          font-family: "helvetica neue", helvetica, arial, sans-serif;
-          color: #222;
-        }
-      }
+
+    /* Style Desktop*/
+    @media screen and (min-width: 800px) {
+    body {
+    background-color: #fff9f1;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    color: #222;
+    width: 700px;
+    margin: 0 auto;
+    margin-top: 50px;
+    }
+    }
+
+    /* Style Mobile*/
+    @media screen and (max-width: 800px) {
+    body {
+    background-color: #fff9f1;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    color: #222;
+    }
+    }
+
+    /* Style Form */
 
       #form-lead #form {
         max-width: 700px;
@@ -158,18 +175,13 @@
         font-size: 1rem;
         text-transform: uppercase;
       }
-
-      #form-lead label {
-        text-align: right;
-        width: 30%;
-      }
-
       #form-lead input {
         border-radius: 3px;
         margin: 0.5em 0;
       }
-
+      /* Style Placeholder */
       /* ::placeholder {
+
       } */
 
       /* Classe para inputs inválidos após o submit */
@@ -178,6 +190,7 @@
         outline: 0;
       }
 
+      /* Style do botão */
       #form-lead .botao {
         display: block;
         position: relative;
@@ -193,6 +206,7 @@
         margin: 0 auto;
       }
 
+      /* Linha Branca botão */
       #form-lead .botao:before {
         display: block;
         content: "";
@@ -204,6 +218,7 @@
         border: 1px solid #fff !important;
       }
 
+      /* Botão Hover */
       #form-lead .botao:hover {
         color: #3a3a3a;
       }

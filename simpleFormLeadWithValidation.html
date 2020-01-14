@@ -47,7 +47,7 @@
 
     <h1 style="text-align: center; margin-bottom: 20px;">Garanta sua vaga:</h1>
 
-    <form onsubmit="clickSubmit()">
+    <form onsubmit="clickSubmit()" id="form-lead">
       <input
         required
         pattern="(\w+\W+){1,10}\w+\W*"
@@ -122,7 +122,8 @@
 
     <style>
       @media screen and (min-width: 800px) {
-        body {
+          
+          body {
           background-color: #fff9f1;
           font-family: "helvetica neue", helvetica, arial, sans-serif;
           color: #222;
@@ -139,18 +140,18 @@
         }
       }
 
-      #form {
+      #form-lead #form {
         max-width: 700px;
         padding: 2rem;
         box-sizing: border-box;
       }
 
-      .form-field {
+      #form-lead .form-field {
         display: flex;
         margin: 0 0 1rem 0;
       }
 
-      label,
+      #form-lead label,
       input {
         display: block;
         width: 100%;
@@ -163,12 +164,12 @@
         text-transform: uppercase;
       }
 
-      label {
+      #form-lead label {
         text-align: right;
         width: 30%;
       }
 
-      input {
+      #form-lead input {
         border-radius: 3px;
         margin: 0.5em 0;
       }
@@ -177,12 +178,12 @@
       } */
 
       /* Classe para inputs inválidos após o submit */
-      form.submitted input:invalid {
+      #form-lead form.submitted input:invalid {
         border: 1px solid red;
         outline: 0;
       }
 
-      .botao {
+      #form-lead .botao {
         display: block;
         position: relative;
         color: #fff;
@@ -197,7 +198,7 @@
         margin: 0 auto;
       }
 
-      .botao:before {
+      #form-lead .botao:before {
         display: block;
         content: "";
         position: absolute;
@@ -208,7 +209,7 @@
         border: 1px solid #fff !important;
       }
 
-      .botao:hover {
+      #form-lead .botao:hover {
         color: #3a3a3a;
       }
     </style>

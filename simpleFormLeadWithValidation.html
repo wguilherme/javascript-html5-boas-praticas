@@ -9,39 +9,35 @@
   </head>
 
   <body>
-    <script>
-      //validacoes
-      //
-      var campoId = "mobilephone";
 
-      function mascara(o, f) {
-        v_obj = o;
-        v_fun = f;
-        setTimeout("execmascara()", 1);
-      }
+<script>
 
-      function execmascara() {
-        v_obj.value = v_fun(v_obj.value);
-      }
+    function mascara(i,t){
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){
+      i.value = v.substring(0, v.length-1);
+      return;
+    }
 
-      function mtel(v) {
-        v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
-        v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
-        v = v.replace(/(\d)(\d{4})$/, "$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
-        return v;
-      }
+   if(t == "tel"){
 
-      function id(el) {
-        return document.getElementById(el);
-      }
-
-      window.onload = function() {
-        document.getElementById(campoId).maxLength = "15";
-        id(campoId).onkeypress = function() {
-          mascara(this, mtel);
-        };
-      };
-    </script>
+    if (v.length === 1) i.value = "(" + i.value;
+    if (v.length === 3) i.value += ") ";
+    if(v[5] == 9){
+    i.setAttribute("maxlength", "15");
+    
+    if (v.length === 10) i.value += "-";
+    }
+    else{
+        i.setAttribute("maxlength", "15");
+        if (v.length === 10) i.value += "-";
+    }
+   }
+  }
+  
+  </script>
+ 
 
     <!-- oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'please enter 1234');" -->
 
@@ -68,8 +64,8 @@
       <input
         required
         pattern="(.){15,15}"
-        oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'Por favor, inclua um número de telefone válido');"
-        type="text"
+        oninput="setCustomValidity(''); checkValidity(); mascara(this, 'tel'); setCustomValidity(validity.valid ? '' :'Por favor, inclua um número de telefone válido');"
+        type="tel"
         id="mobilephone"
         name="mobilephone"
         placeholder="WhatsApp"
@@ -151,8 +147,7 @@
         margin: 0 0 1rem 0;
       }
 
-      #form-lead label,
-      input {
+      #form-lead input {
         display: block;
         width: 100%;
         background-color: #ededed;
